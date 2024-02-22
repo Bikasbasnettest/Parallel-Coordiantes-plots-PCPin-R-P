@@ -1,0 +1,30 @@
+setwd("E:/NARC2")
+Bikas<-read.csv("E:/NARC2/C77-78.csv", header = TRUE)
+print(Bikas)
+head(Bikas)
+#to draw the parallel coordinate plots:
+library(GGally)
+colnames(Bikas)
+?GGally
+?ggparcoord()
+library(ggplot2)
+PPPC<-ggparcoord(
+  data = Bikas,
+  columns = c(7, 8,14, 22, 23, 28),
+  groupColumn = 3,
+  scale = "center",
+  scaleSummary = "mean",
+  centerObsID = c(2),
+  missing = "exclude",
+  showPoints = TRUE,
+  splineFactor = TRUE,
+  alphaLines = 0.5,
+  boxplot = FALSE,
+  shadeBox = NULL,
+  mapping = NULL, 
+) +
+  theme_bw() +
+  labs(title = "Synteny study among the tested Genotype", x = "", y = "")
+PPPC  
+ggsave(filename = "paralle coordinate plot in R.jpg", plot = PPPC,
+       width = 20, height = 15, dpi = 800, units = "cm")
